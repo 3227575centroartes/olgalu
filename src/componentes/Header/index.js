@@ -2,7 +2,8 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { DataContext } from '../../context/Dataprovider';
-import '../../styles/header.css'; // Importa tus estilos CSS
+import Nike from '../../images/Nike.jpg';
+import 'boxicons';
 
 export const Header = () => {
   const { isLoggedIn, logout, carrito, toggleMenu } = useContext(DataContext); // Corregí 'toogleMenu' a 'toggleMenu'
