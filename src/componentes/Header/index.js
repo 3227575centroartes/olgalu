@@ -1,45 +1,64 @@
-
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { DataContext } from '../../context/Dataprovider';
+import { DataContext } from "../../context/Dataprovider";
+import 'boxicons';
 import Nike from '../../images/Nike.jpg';
-import '../../styles/header.css';
 
 export const Header = () => {
-  const { isLoggedIn, logout, carrito, toggleMenu } = useContext(DataContext); // Corregí 'toogleMenu' a 'toggleMenu'
+  const { isLoggedIn, logout, carrito, toogleMenu, user } = useContext(DataContext);
 
   return (
-    <header className="header">
-      <Link to="/productos" className="logo-link">
-        <div className="logo-container">
-          <img src={Nike} alt="logo" className="logo-img" />
-        </div>
-      </Link>
-
-      <ul className="nav-menu">
-        <li>
-          <Link to="/" className="nav-link">Inicio</Link>
-        </li>
-        <li>
-          <Link to="/registro" className="nav-link">Registrarse</Link>
-        </li>
-        {!isLoggedIn && (
-          <li>
-            <Link to="/iniciar-sesion" className="nav-link">Iniciar Sesión</Link>
-          </li>
+    <header>
+      <div className="user-info">
+        {isLoggedIn && user && (
+          <div className="user-details">
+            <span>{user.nombres}</span>
+            <span>{user.email}</span>
+          </div>
         )}
-        <li>
-          <Link to="/productos" className="nav-link">Productos</Link>
+        <Link to="/">
+          <div className="logo">
+            <img src={Nike} alt="logo" width="150" />
+          </div>
+        </Link>
+      </div>
+
+      <ul>
+
+      <li>
+          <Link to="/">INICIO</Link>
         </li>
+
+        <li>
+          <Link to="/productos">PRODUCTOS</Link>
+        </li>
+
+        {!isLoggedIn && (
+          <>
+            <li>
+              <Link to="/registro">REGISTRO</Link>
+            </li>
+            <li>
+              <Link to="/iniciar-sesion">INICIAR SESIÓN</Link>
+            </li>
+          </>
+        )}
+        
+        
         {isLoggedIn && (
-          <li>
-            <button className="logout-btn" onClick={logout}>Cerrar Sesión</button>
-          </li>
+          <>
+            <li>
+              <Link to="/compras">COMPRAS</Link> {/* Nuevo enlace para ver las compras */}
+            </li>
+            <li>
+              <button onClick={logout}>Cerrar Sesión</button>
+            </li>
+          </>
         )}
       </ul>
-      <div className="cart" onClick={toggleMenu}>
-        <box-icon name="cart" aria-label="Carrito de compras"></box-icon>
-        <span className="item-total">{carrito.length}</span>
+      <div className="cart" onClick={toogleMenu}>
+        <box-icon name="cart"></box-icon>
+        <span className="item_total">{carrito.length}</span>
       </div>
     </header>
   );
